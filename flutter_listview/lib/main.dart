@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
             return Container(
               padding: EdgeInsets.all(50),
               color: Colors.amber[colorCodes[index]],
-              child: Text('Entry ${entries}'),
+              child: Text('Entry ${entries[index]}'),
             );
           },
         ),
