@@ -6,7 +6,7 @@ void main(){
 
 class MyApp extends StatelessWidget {
   final List<String> entries = <String>['a', 'b', 'c'];
-  final List<int> colorCodes = <int>[100,300, 500];
+  final List<int> colorCodes = <int>[100, 200, 300];
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,11 @@ class MyApp extends StatelessWidget {
           itemCount: entries.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-              padding: EdgeInsets.all(50),
+              padding: EdgeInsets.all(40),
               color: Colors.amber[colorCodes[index]],
-              child: Text('Entry ${entries[index]}'),
+              child: Text('Entry ${entries}'),
             );
-          },
-        ),
+          },),
       ),
     );
   }

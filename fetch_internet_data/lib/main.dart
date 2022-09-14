@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 Future<Album> fetchAlbum() async {
   final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+      .get(Uri.parse('https://neppedia.com/json/index.php'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -19,28 +19,25 @@ Future<Album> fetchAlbum() async {
   }
 }
 
-class Album{
-    final int userId;
-    final int id;
-    final String title;
+class Album {
+  final String message;
 
-    Album({
-      required this.userId,
-      required this.id,
-      required this.title,
-});
+  Album({
+    required this.message,
+  });
 
-    factory Album.fromJson(Map<String, dynamic> json){
-      return Album(userId: json['userId'], id: json['id'], title: json['title']);
-    }
-
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      message: json['message'],
+    );
+  }
 }
 
-void main(){
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -50,7 +47,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     futureAlbum = fetchAlbum();
   }
@@ -58,22 +54,30 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Fetch Data Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Fetch Data Example'),
+        ),
         body: Center(
           child: FutureBuilder<Album>(
             future: futureAlbum,
             builder: (context, snapshot) {
-              if(snapshot.hasData){
-                return Text(snapshot.data!.title);
-              }else{
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.message);
+              } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
             },
           ),
-        )
+        ),
       ),
-
     );
   }
 }
-
