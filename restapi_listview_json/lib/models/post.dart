@@ -10,28 +10,32 @@ String postToJson(List<Post> data) => json.encode(List<dynamic>.from(data.map((x
 
 class Post {
   Post({
-    required this.userId,
+    required this.albumId,
     required this.id,
     required this.title,
-    this.body,
+    required this.url,
+    required this.thumbnailUrl,
   });
 
-  int userId;
+  int albumId;
   int id;
   String title;
-  String? body;
+  String url;
+  String thumbnailUrl;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-    userId: json["userId"],
+    albumId: json["albumId"],
     id: json["id"],
     title: json["title"],
-    body: json["body"],
+    url: json["url"],
+    thumbnailUrl: json["thumbnailUrl"],
   );
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
+    "albumId": albumId,
     "id": id,
     "title": title,
-    "body": body,
+    "url": url,
+    "thumbnailUrl": thumbnailUrl,
   };
 }

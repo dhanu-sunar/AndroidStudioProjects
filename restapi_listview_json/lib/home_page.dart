@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:restapi_listview_json/models/post.dart';
@@ -39,14 +38,32 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Visibility(
         visible: isLoaded,
-        child: ListView.builder(
-          // scrollDirection: Axis.horizontal,
+        child: PageView.builder(
+          scrollDirection: Axis.vertical,
           itemCount: posts?.length,
-          itemBuilder: (context, index) {
-            return Container(
-              child: Text(posts![index].title, style: TextStyle(fontSize: 20),),
-            );
-          }),
+          itemBuilder: (BuildContext context, int index) => Container(
+            child: Image.network(posts![index].thumbnailUrl),
+            // child: Padding(
+            //   padding: EdgeInsets.all(0.0),
+            //   child: new ListTile(
+            //     leading: Text('leading'),
+            //     title: new Text(posts![index].title, style: TextStyle(fontWeight:FontWeight.bold, fontSize: 18.0)),
+            //     subtitle: Text('Online Khabar'),
+            //   ),
+            // ),
+          ),
+          // itemBuilder: (context, index) {
+          //   // if(posts![index].id==1){
+          //   //   return Container(child: Text(posts![index].thumbnailUrl),);
+          //   // }else{
+          //   //   return Container(child: Text('No'),);
+          //   // }
+          //
+          //   return Container(
+          //     child: Text(posts![index].title, style: TextStyle(fontSize: 20),),
+          //   );
+          // }
+          ),
         replacement: const Center(child: CircularProgressIndicator(),),
       ),
     );
